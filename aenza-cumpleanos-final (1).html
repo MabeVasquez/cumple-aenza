@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cumpleaños · AENZA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  background: #0A0F1E;
+  display: flex;
+  justify-content: center;
+  padding: 48px 20px 80px;
+  min-height: 100vh;
+}
+
+.shell {
+  width: 680px;
+  max-width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 48px 120px rgba(0,0,0,0.7),
+    0 16px 40px rgba(0,15,60,0.5);
+}
+
+/* ══════════════════
+   HERO
+══════════════════ */
+.hero {
+  background: #00102A;
+  position: relative;
+  overflow: hidden;
+  padding: 36px 48px 56px;
+  display: flex;
+  flex-direction: column;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+/* ── Logo row ── */
+.logo-row {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 52px;
+}
+
+/* Espacio para el logo real */
+.logo-slot {
+  height: 40px;
+  display: flex; align-items: center;
+}
+/* Logo como imagen */
+.logo-slot img {
+  height: 100%;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+/* Fallback si no hay imagen: texto+ícono */
+.logo-slot .logo-fallback {
+  display: flex; align-items: center; gap: 10px;
+}
+.logo-fallback-box {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-fallback-name {
+  font-size: 18px; font-weight: 800;
+  letter-spacing: 0.1em; color: #fff;
+}
+.logo-fallback-sub {
+  font-size: 7.5px; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-top: 2px;
+}
+
+.hero-date {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11.5px; font-weight: 500;
+  color: rgba(255,255,255,0.42);
+}
+
+/* ── Texto hero ── */
+.hero-text { position: relative; z-index: 2; }
+
+.hero-title {
+  font-size: 44px; font-weight: 800;
+  line-height: 1.1; letter-spacing: -1.5px;
+  color: #fff; margin-bottom: 18px;
+}
+.hero-title em { font-style: normal; color: #F5A800; }
+
+.hero-sub {
+  font-size: 14.5px; font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8; max-width: 400px;
+}
+
+.hero-rule {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(245,168,0,0.45) 25%,
+    #F5A800 50%,
+    rgba(245,168,0,0.45) 75%,
+    transparent);
+}
+
+/* ══════════════════
+   CARDS
+══════════════════ */
+.cards-wrap {
+  background: #F2F6FC;
+  padding: 44px 40px 52px;
+}
+.cards-header { margin-bottom: 28px; }
+.cards-overline {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: #2050C8; margin-bottom: 6px;
+}
+.cards-title {
+  font-size: 22px; font-weight: 800;
+  color: #060E24; letter-spacing: -0.3px; line-height: 1.2;
+}
+.cards-title .sub {
+  display: block; font-size: 13px; font-weight: 400;
+  color: #8898BB; margin-top: 6px; letter-spacing: 0;
+}
+
+/* Grid 3 cols uniforme */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* ── Card ── */
+.pcard {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.05),
+    0 10px 32px rgba(0,18,80,0.12);
+  display: flex; flex-direction: column;
+  background: #fff;
+}
+
+/* Zona de foto — proporción cuadrada */
+.pcard-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #E8EFF9;
+}
+
+/* Imagen real */
+.pcard-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Fallback sin foto — gradiente + iniciales */
+.pcard-fallback {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px; font-weight: 800; color: #fff; letter-spacing: -1px;
+}
+.pf1 { background: linear-gradient(155deg, #001650, #0044D6); }
+.pf2 { background: linear-gradient(155deg, #003265, #0082D4); }
+.pf3 { background: linear-gradient(155deg, #001D44, #1C52D4); }
+.pf4 { background: linear-gradient(155deg, #002458, #0064BE); }
+.pf5 { background: linear-gradient(155deg, #011444, #1848B8); }
+.pf6 { background: linear-gradient(155deg, #002264, #0058D0); }
+
+/* Overlay degradado sobre la foto */
+.pcard-photo-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    transparent 45%,
+    rgba(0,8,32,0.52) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Badge emoji arriba-derecha */
+.pcard-badge {
+  position: absolute; top: 11px; right: 11px; z-index: 3;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; line-height: 1;
+}
+
+/* Cuerpo texto */
+.pcard-body {
+  padding: 15px 16px 18px;
+  display: flex; flex-direction: column;
+  flex: 1;
+}
+.pcard-name {
+  font-size: 13.5px; font-weight: 700;
+  color: #060E24; line-height: 1.3; margin-bottom: 4px;
+}
+.pcard-role {
+  font-size: 11px; color: #8898BB;
+  line-height: 1.45; flex: 1; margin-bottom: 13px;
+}
+.pcard-accent {
+  width: 24px; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, #001E6C, #F5A800);
+}
+
+/* ══════════════════
+   MENSAJE
+══════════════════ */
+.msg {
+  background: #001E6C;
+  padding: 56px 72px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.msg-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.msg-inner { position: relative; z-index: 2; }
+.msg-gem {
+  width: 8px; height: 8px; background: #F5A800;
+  transform: rotate(45deg); border-radius: 1.5px;
+  margin: 0 auto 24px;
+}
+.msg-text {
+  font-size: 16px; font-weight: 300; font-style: italic;
+  color: rgba(255,255,255,0.85); line-height: 1.9;
+  max-width: 440px; margin: 0 auto 24px;
+}
+.msg-firma {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(245,168,0,0.8);
+}
+
+/* ══════════════════
+   FOOTER
+══════════════════ */
+.footer {
+  background: #fff;
+  padding: 24px 48px 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-top: 1px solid #EBF0FA;
+}
+
+/* Espacio para logo en footer */
+.footer-logo-slot {
+  height: 32px;
+  display: flex; align-items: center;
+}
+.footer-logo-slot img {
+  height: 100%; width: auto;
+  object-fit: contain; display: block;
+}
+/* Fallback footer */
+.footer-logo-fallback {
+  display: flex; align-items: center; gap: 9px;
+}
+.ft-icon {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: linear-gradient(145deg, #001650, #0044D6);
+  display: flex; align-items: center; justify-content: center;
+}
+.ft-name {
+  font-size: 15px; font-weight: 800;
+  letter-spacing: 0.1em; color: #060E24;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- HERO ────────────────────────── -->
+  <div class="hero">
+
+    <svg class="hero-bg" viewBox="0 0 680 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="g1" cx="80%" cy="10%" r="55%">
+          <stop offset="0%" stop-color="#1045C0" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#00102A" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="g2" cx="10%" cy="90%" r="45%">
+          <stop offset="0%" stop-color="#002E90" stop-opacity="0.28"/>
+          <stop offset="100%" stop-color="#00102A" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="680" height="340" fill="url(#g1)"/>
+      <rect width="680" height="340" fill="url(#g2)"/>
+      <circle cx="640" cy="-20" r="220" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <circle cx="640" cy="-20" r="148" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <circle cx="640" cy="-20" r="82"  fill="none" stroke="rgba(245,168,0,0.1)"   stroke-width="1"/>
+      <circle cx="582" cy="44"  r="2.5" fill="#F5A800" opacity="0.65"/>
+      <circle cx="618" cy="82"  r="1.8" fill="#F5A800" opacity="0.4"/>
+      <circle cx="120" cy="52"  r="2"   fill="#F5A800" opacity="0.45"/>
+      <circle cx="530" cy="58"  r="1.5" fill="white"   opacity="0.3"/>
+      <circle cx="650" cy="130" r="1.5" fill="white"   opacity="0.2"/>
+      <line x1="648" y1="52" x2="648" y2="64" stroke="rgba(245,168,0,0.45)" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="642" y1="58" x2="654" y2="58" stroke="rgba(245,168,0,0.45)" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+
+    <div class="logo-row">
+
+      <!-- ═══════════════════════════════════════════
+           LOGO — reemplaza src con la URL del logo
+           <img src="aenza.jpg" alt="AENZA">
+      ════════════════════════════════════════════ -->
+      <div class="logo-slot">
+        <!-- OPCIÓN A: logo como imagen -->
+        <!-- <img src="aenza.png" alt="AENZA"> -->
+
+        <!-- OPCIÓN B: fallback mientras no hay imagen -->
+        <div class="logo-fallback">
+          <div class="logo-fallback-box">
+            <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
+              <path d="M3 17L8 6L13 14.5L16.5 9L20 17H3Z" fill="white" fill-opacity="0.92"/>
+            </svg>
+          </div>
+          <div>
+            <div class="logo-fallback-name">AENZA</div>
+            <div class="logo-fallback-sub">Grupo Empresarial</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-date">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+          <rect x="1" y="2" width="12" height="11" rx="2" stroke="rgba(255,255,255,0.38)" stroke-width="1.3"/>
+          <path d="M1 5.5H13" stroke="rgba(255,255,255,0.38)" stroke-width="1.3"/>
+          <path d="M4.5 1V3.5M9.5 1V3.5" stroke="rgba(255,255,255,0.38)" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        <span id="fecha-hoy">Miércoles, 17 de junio de 2026</span>
+      </div>
+    </div>
+
+    <div class="hero-text">
+      <h1 class="hero-title">
+        ¡Hoy es un<br>día <em>especial!</em>
+      </h1>
+      <p class="hero-sub">
+        Celebramos a quienes hacen de AENZA un lugar
+        extraordinario con su talento y dedicación cada día.
+      </p>
+    </div>
+
+    <div class="hero-rule"></div>
+  </div>
+
+  <!-- CARDS ──────────────────────── -->
+  <div class="cards-wrap">
+    <div class="cards-header">
+      <div class="cards-overline">Cumpleañeros de hoy</div>
+      <div class="cards-title">
+        ¡Hoy los celebramos! 🎉
+        <span class="sub">Muchas felicidades a quienes cumplen años hoy.</span>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- ═══════════════════════════════════════════════════
+           COLABORADOR 1
+           Para agregar foto: descomenta el <img> y elimina
+           el <div class="pcard-fallback">
+      ════════════════════════════════════════════════════ -->
+      <div class="pcard">
+        <div class="pcard-photo">
+          <!-- <img src="URL_FOTO_COLABORADOR_1.jpg" alt="Fiorella Cuya Huapaya"> -->
+          <div class="pcard-fallback pf1">FC</div>
+          <div class="pcard-photo-overlay"></div>
+          <div class="pcard-badge">🎂</div>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Fiorella Cuya Huapaya</div>
+          <div class="pcard-role">Analista de Control Interno</div>
+          <div class="pcard-accent"></div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════
+           COLABORADOR 2
+      ════════════════════════════════════════════════════ -->
+      <div class="pcard">
+        <div class="pcard-photo">
+          <!-- <img src="URL_FOTO_COLABORADOR_2.jpg" alt="Juan Pérez Ramírez"> -->
+          <div class="pcard-fallback pf2">JP</div>
+          <div class="pcard-photo-overlay"></div>
+          <div class="pcard-badge">🎂</div>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Juan Pérez Ramírez</div>
+          <div class="pcard-role">Especialista de TI</div>
+          <div class="pcard-accent"></div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════
+           COLABORADOR 3
+      ════════════════════════════════════════════════════ -->
+      <div class="pcard">
+        <div class="pcard-photo">
+          <!-- <img src="URL_FOTO_COLABORADOR_3.jpg" alt="Sofía Méndez Torres"> -->
+          <div class="pcard-fallback pf3">SM</div>
+          <div class="pcard-photo-overlay"></div>
+          <div class="pcard-badge">🎂</div>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Sofía Méndez Torres</div>
+          <div class="pcard-role">Jefa de Proyectos</div>
+          <div class="pcard-accent"></div>
+        </div>
+      </div>
+
+      <!-- Duplica este bloque para más colaboradores -->
+
+    </div>
+  </div>
+
+  <!-- MENSAJE ────────────────────── -->
+  <div class="msg">
+    <svg class="msg-bg" viewBox="0 0 680 220" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="mg" cx="50%" cy="100%" r="60%">
+          <stop offset="0%"   stop-color="#003ACC" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#001E6C" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="680" height="220" fill="url(#mg)"/>
+      <circle cx="620" cy="-10" r="200" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <circle cx="60"  cy="230" r="180" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </svg>
+    <div class="msg-inner">
+      <div class="msg-gem"></div>
+      <p class="msg-text">
+        "En AENZA valoramos el compromiso, talento y dedicación
+        de cada colaborador. Les deseamos un año lleno de éxitos,
+        bienestar y nuevas oportunidades."
+      </p>
+      <p class="msg-firma">— El Equipo AENZA</p>
+    </div>
+  </div>
+
+  <!-- FOOTER ─────────────────────── -->
+  <div class="footer">
+
+    <!-- ═══════════════════════════════════════════
+         LOGO FOOTER — reemplaza src con tu logo
+         Usa la versión en color (no blanca)
+    ════════════════════════════════════════════ -->
+    <div class="footer-logo-slot">
+      <!-- <img src="URL_LOGO_AENZA_COLOR.png" alt="AENZA"> -->
+
+      <!-- Fallback -->
+      <div class="footer-logo-fallback">
+        <div class="ft-icon">
+          <svg width="14" height="14" viewBox="0 0 22 22" fill="none">
+            <path d="M3 17L8 6L13 14.5L16.5 9L20 17H3Z" fill="white" fill-opacity="0.9"/>
+          </svg>
+        </div>
+        <span class="ft-name">AENZA</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    const el = document.getElementById('fecha-hoy');
+    if (!el) return;
+    const s = new Date().toLocaleDateString('es-PE', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+    el.textContent = s.charAt(0).toUpperCase() + s.slice(1);
+  })();
+</script>
+</body>
+</html>
